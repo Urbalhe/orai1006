@@ -9,7 +9,7 @@ namespace Okosotthon
         public OkosZar(string azonosito, string nev, string pinKod)
         : base(azonosito, nev)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void ParancsVegrehajtasa(string parancs)
