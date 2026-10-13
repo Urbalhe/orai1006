@@ -6,21 +6,80 @@ namespace Okosotthon
 {
     public class OkosotthonKozpont
     {
-        public void EszkozHozzaadasa(OkosEszkoz eszkoz)
+        private readonly List<OkosEszkoz> eszkozok;
+
+        public OkosotthonKozpont()
         {
-            throw new NotImplementedException();
+            this.eszkozok = new List<OkosEszkoz>();
         }
 
-     
+        public void EszkozHozzaadasa(OkosEszkoz eszkoz)
+        {
+            if (eszkoz == null)
+            {
+                throw new ArgumentNullException(nameof(eszkoz));
+            }
+
+            this.eszkozok.Add(eszkoz);
+        }
+
         public void OsszesCsatlakoztatasa()
         {
-            throw new NotImplementedException();
+            foreach (OkosEszkoz eszkoz in this.eszkozok)
+            {
+                eszkoz.Csatlakozas();
+            }
         }
 
         public int RendszerDiagnosztikaFuttatasa()
         {
-            throw new NotImplementedException();
+            int sikeresTesztek = 0;
+
+            foreach (OkosEszkoz eszkoz in this.eszkozok)
+            {
+                if (eszkoz.DiagnosztikaFuttatasa())
+                {
+                    sikeresTesztek++;
+                }
+            }
+
+            return sikeresTesztek;
         }
 
+        public void OsszesVeszjelzesInditasa()
+        {
+            foreach (OkosEszkoz eszkoz in this.eszkozok)
+            {
+                if (eszkoz is Ihangjelzo h)
+                {
+                    h.VeszjelzesInditasa();
+                }
+            }
+        }
+
+        public void OsszesIdozitoBeallitasa(int perc)
+        {
+            foreach (OkosEszkoz eszkoz in this.eszkozok)
+            {
+                if (eszkoz is Iidozito i)
+                {
+                    i.IdozitestBeallit(perc);
+                }
+            }
+        }
+
+        public void OsszesStatisztikaKiirasa()
+        {
+            foreach (OkosEszkoz eszkoz in this.eszkozok)
+            {
+                if (eszkoz is Istatisztika s)
+                {
+                    Console.WriteLine(s.StatisztikatKeszit());
+                }
+            }
+        }
     }
 }
+
+
+
